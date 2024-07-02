@@ -48,10 +48,15 @@ class JobSearchApp():
     title = input("  Enter the job title: ")
     company = input("  Enter the company name: ")
     agency = input("  If applicable, nter the agency name: ")
+    location = input("  Enter the location of the job: ")
     desc = input("  Enter a description of the job:  ")
     url = input("  Enter a URL for the job posting: ")
     jobsDb = JobSearchDb()
-    jobsDb.add_job(title, company, agency, desc, url)
+    jobsDb.add_job(title, company, agency, location, desc, url)
+
+  def print_status(self):
+    jobsDb = JobSearchDb()
+    jobsDb.get_jobs()
   
 def main():
   app = JobSearchApp()
