@@ -103,7 +103,12 @@ class P2Pool():
         event = ShareFoundEvent(miner, effort, difficulty, ip_addr, timestamp)
         db.add_share_found_event(event)
       
-        print(f"Event : SHARE FOUND EVENT - Miner: {miner}, Effort: {effort}, Difficulty: {difficulty}, IP address: {ip_addr}, Timestamp: {timestamp}")
+        print("SHARE FOUND EVENT")
+        print(f"  Miner: {miner}")
+        print(f"  Effort: {effort}")
+        print(f"  Difficulty: {difficulty}")
+        print(f"  IP address: {ip_addr}")
+        print(f"  Timestamp: {timestamp}")
         event = ShareFoundEvent(miner, effort, difficulty, ip_addr, timestamp)
         db.add_share_found_event(event)
 
