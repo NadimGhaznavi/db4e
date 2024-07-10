@@ -26,7 +26,8 @@ class MiningApp():
       print("    1. Status")
       print("    2. Monitor P2Pool log")
       print("    3. Import Wallet data")
-      print("    4. Exit")
+      print("    4. P2Pool XMR Payments")
+      print("    5. Exit")
       choice = input("  Enter your choice: ")
 
       if choice == "1":
@@ -42,7 +43,11 @@ class MiningApp():
         db = MiningDb()
         db.import_wallet_csv(wallet_csv, wallet_addr)
 
-      elif choice == "4" or choice == "X" or choice == "x":
+      elif choice == "4":
+        db = MiningDb()
+        db.print_p2pool_transactions()
+
+      elif choice == "5" or choice == "X" or choice == "x":
         keep_looping = False
 
       else:

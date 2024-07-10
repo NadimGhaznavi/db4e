@@ -82,11 +82,31 @@ class MiningDb():
     if not mining_col.find_one({'timestamp': timestamp}):
       mining_col.insert_one(new_event)
 
+  def print_p2pool_transactions(self):
+    events = self.get_events('xmr_transaction')
+    # Sort events by timestamp
+    events = sorted(events, key=lambda event: event['timestamp'])
+
+    print(f"-- XMR Transactions -----------------------")
+    xmr_count = 0
+    total_amount = 0
+    for event in events:
+      xmr_count = xmr_count + 1
+      sender = event['sender']
+      receiver = event['receiver'][0:6]
+      amount = event['amount']
+      memo = event['memo']
+      timestamp = event['timestamp']
+      print(f"{timestamp} : From ({sender}) To ({receiver}) Amount ({amount}) Memo ({memo})")
+      total_amount = total_amount + amount
+    print(f"Total number of records ({xmr_count})")
+    print(f"           Total amount ({total_amount})")
+
+
   def print_status(self):
     print("---------- MiningDb Status ----------------")
 
     events = self.get_events('xmr_transaction')
-    #print(f"-- XMR Transactions ({len(events)})")
     print(f"-- XMR Transactions -----------------------")
     xmr_count = 0
     for event in events:
