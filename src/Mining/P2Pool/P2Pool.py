@@ -59,7 +59,7 @@ class P2Pool():
         time.sleep(5)
         continue
 
-      print(f"Log   : {log_line}"[0:-1])
+      #print(f"Log   : {log_line}"[0:-1])
 
       ### BLOCK FOUND events
       # 2024-06-12 10:06:28.0478 P2Pool BLOCK FOUND: main chain block at height 3169541 was mined by someone else in this p2pool
