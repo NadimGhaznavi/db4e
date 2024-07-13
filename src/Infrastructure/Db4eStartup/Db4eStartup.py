@@ -60,6 +60,7 @@ class Db4eStartup():
     self._db_name = config[environ]['db_name']
     self._mongodb_server = config[environ]['mongodb_server']
     self._mongodb_port = config[environ]['mongodb_port']
+    self._p2pool_payouts_csv = config[environ]['p2pool_payouts_csv']
     self._wallet_csv = config[environ]['wallet_csv']
     
   def action(self):
@@ -71,6 +72,7 @@ class Db4eStartup():
     print(f"  Environment       : {self._environ}")
     print(f"  Storage file      : {self._storage_file}")
     print(f"  P2P log           : {self._p2pool_log}")
+    print(f"  P2Pool payouts CSV file : {self._p2pool_payouts_csv}")
     print(f"  Mongo DB name     : {self._db_name}")
     print(f"  Mongo server host : {self._mongodb_server}")
     print(f"  Mongo server port : {self._mongodb_port}")
@@ -93,6 +95,9 @@ class Db4eStartup():
   
   def mongodb_port(self):
     return int(self._mongodb_port)
+  
+  def p2pool_payouts_csv(self):
+    return self._p2pool_payouts_csv
 
   def wallet_csv(self):
     return self._wallet_csv

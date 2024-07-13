@@ -17,7 +17,7 @@ class XMRTransaction():
     self._txid = txid
 
   def __str__(self):
-    return f"XMR Transaction for {self._amount} XMR at {self._timestamp}"
+    return f"{self._timestamp} : Transaction for ({self._amount}) XMR"
   
   def amount(self, new_amount=None):
     if new_amount:

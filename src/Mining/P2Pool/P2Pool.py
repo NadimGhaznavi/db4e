@@ -69,9 +69,9 @@ class P2Pool():
         # "Block Found" event
         timestamp_str = match.group('timestamp')
         timestamp = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S.%f")
-        print("BLOCK FOUND EVENT")
-        print(f"  P2Pool    : {self._name}")
-        print(f"  Timestamp : {timestamp}")
+        print(f"-- Block Found Event ----------------------")
+        print(f"    P2Pool    : {self._name}")
+        print(f"    Timestamp : {timestamp}")
         event = BlockFoundEvent(self._name, timestamp)
         db.add_block_found_event(event)
 
@@ -102,13 +102,13 @@ class P2Pool():
 
         event = ShareFoundEvent(miner, effort, difficulty, ip_addr, timestamp)
         db.add_share_found_event(event)
-      
-        print("SHARE FOUND EVENT")
-        print(f"  Miner: {miner}")
-        print(f"  Effort: {effort}")
-        print(f"  Difficulty: {difficulty}")
-        print(f"  IP address: {ip_addr}")
-        print(f"  Timestamp: {timestamp}")
+    
+        print(f"-- Share Found Event-----------------------")
+        print(f"    Miner: {miner}")
+        print(f"    Effort: {effort}")
+        print(f"    Difficulty: {difficulty}")
+        print(f"    IP address: {ip_addr}")
+        print(f"    Timestamp: {timestamp}")
         event = ShareFoundEvent(miner, effort, difficulty, ip_addr, timestamp)
         db.add_share_found_event(event)
 
@@ -123,13 +123,19 @@ class P2Pool():
         timestamp = datetime.strptime(match.group('timestamp'), "%Y-%m-%d %H:%M:%S.%f")
         block_height = int(match.group('block_height'))
         
-        print("XMR TRANSACTION FOUND")
-        print(f"  Wallet       : {wallet_address[0:4]}...")
-        print(f"  Amount       : {payout_amount}")
-        print(f"  Block number : {block_height}")
-        print(f"  Timestamp    : {timestamp}")
+        print(f"-- XMR Transaction ------------------------")
+        print(f"    Wallet       : {wallet_address[0:4]}...")
+        print(f"    Amount       : {payout_amount}")
+        print(f"    Block number : {block_height}")
+        print(f"    Timestamp    : {timestamp}")
         
-        xmr_transaction = XMRTransaction('P2Pool', wallet_address, payout_amount, block_height, '', timestamp, 'Mining')
+        xmr_transaction = XMRTransaction('P2Pool', 
+                                         wallet_address, 
+                                         payout_amount, 
+                                         block_height, 
+                                         '', 
+                                         timestamp, 
+                                         'Mining')
         db.add_xmr_transaction(xmr_transaction)
       
   def p2pool_log(self):
