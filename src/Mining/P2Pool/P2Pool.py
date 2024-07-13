@@ -124,7 +124,7 @@ class P2Pool():
         block_height = int(match.group('block_height'))
         
         print(f"-- XMR Transaction ------------------------")
-        print(f"    Wallet       : {wallet_address[0:4]}...")
+        print(f"    Wallet       : {wallet_address[0:14]}...")
         print(f"    Amount       : {payout_amount}")
         print(f"    Block number : {block_height}")
         print(f"    Timestamp    : {timestamp}")
