@@ -53,6 +53,7 @@ class MiningDb():
     sender = xmr_transaction.sender()
     receiver = xmr_transaction.receiver()
     amount = xmr_transaction.amount()
+    block_height = xmr_transaction.block_height()
     memo = xmr_transaction.memo()
     timestamp = xmr_transaction.timestamp()
     new_transaction = {
@@ -60,6 +61,7 @@ class MiningDb():
       'sender' : sender,
       'receiver' : receiver,
       'amount' : amount,
+      'block_height' : block_height,
       'memo' : memo,
       'timestamp' : timestamp
     }
@@ -71,13 +73,13 @@ class MiningDb():
 
   def get_events(self, event_type):
     db = self.db()
-    mining_col = db["mining"]
+    mining_col = db['mining']
     events = mining_col.find({'doc_type': event_type})
     return events
 
   def insert_uniq_one(self, new_event):
     db = self.db()
-    mining_col = db["mining"]
+    mining_col = db['mining']
     timestamp = new_event['timestamp']
     if not mining_col.find_one({'timestamp': timestamp}):
       mining_col.insert_one(new_event)
