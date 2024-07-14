@@ -30,7 +30,11 @@ class MiningApp():
       print("    5. Block found events")
       print("    6. Share found events")
       print("    7. Exit")
-      choice = input("  Enter your choice: ")
+      try:
+        choice = input("  Enter your choice: ")
+      except KeyboardInterrupt:
+        choice = "7"
+        print()
 
       if choice == "1":
         self.print_status()
@@ -57,7 +61,7 @@ class MiningApp():
         db = MiningDb()
         db.print_share_found_events()
 
-      elif choice == "7" or choice == "X" or choice == "x":
+      elif choice == "7":
         keep_looping = False
 
       else:

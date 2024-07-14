@@ -37,7 +37,8 @@ class Db4eApp():
       try:
         choice = input("  Enter your choice: ")
       except KeyboardInterrupt:
-        print("Exiting the Database 4 Everything...")
+        choice = "4"
+        print()
   
       if choice == "1":
         startup = Db4eStartup()
@@ -53,7 +54,7 @@ class Db4eApp():
         job_app = JobSearchApp()
         job_app.menu()
 
-      elif choice == "4" or choice == "X" or choice == "x":
+      elif choice == "4":
         keep_looping = False
 
       else:
