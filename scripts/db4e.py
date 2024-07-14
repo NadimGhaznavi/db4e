@@ -2,7 +2,6 @@
 """
 scripts/db4e.py
 """
-
 import sys
 
 # Append the Infrastructure directory to the Python path

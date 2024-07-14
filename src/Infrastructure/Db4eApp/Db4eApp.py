@@ -34,14 +34,17 @@ class Db4eApp():
       print("    2. Mining Menu")
       print("    3. Job Search Menu")
       print("    4. Exit")
-      choice = input("  Enter your choice: ")
-
+      try:
+        choice = input("  Enter your choice: ")
+      except KeyboardInterrupt:
+        print("Exiting the Database 4 Everything...")
+  
       if choice == "1":
         startup = Db4eStartup()
         startup.print_status()
         db = Db4eDb()
         db.print_status()
-        
+       
       elif choice == "2":
         mining_app = MiningApp()
         mining_app.menu()
@@ -55,10 +58,12 @@ class Db4eApp():
 
       else:
         print("Invalid choice, try again")
+    
   
 def main():
   app = Db4eApp()
   app.menu()
+  
 
 if __name__ == '__main__':
   main()
