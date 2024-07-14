@@ -12,7 +12,6 @@ class ShareFoundEvent():
     self._difficulty = difficulty
     self._ip_addr = ip_addr
     self._timestamp = timestamp
-    self._ip = None
     
   def __str__(self):
     return f"Share found by {self._miner} at {self._timestamp}"
