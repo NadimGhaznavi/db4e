@@ -84,6 +84,20 @@ class MiningDb():
     if not mining_col.find_one({'timestamp': timestamp}):
       mining_col.insert_one(new_event)
 
+  def print_block_found_events(self):
+    events = self.get_events('block_found_event')
+    # Sort events by timestamp
+    events = sorted(events, key=lambda event: event['timestamp'])
+
+    print(f"-- Block Found Events ---------------------")
+    block_count = 0
+    for event in events:
+      block_count = block_count + 1
+      p2pool = event['p2pool']
+      timestamp = event['timestamp']
+      print(f"{timestamp} : {p2pool}")
+    print(f"Total number of records ({block_count})")
+
   def print_p2pool_transactions(self):
     events = self.get_events('xmr_transaction')
     # Sort events by timestamp
@@ -95,15 +109,30 @@ class MiningDb():
     for event in events:
       xmr_count = xmr_count + 1
       sender = event['sender']
-      receiver = event['receiver'][0:6]
-      amount = event['amount']
+      receiver = event['receiver'][0:6] 
+      amount = round(event['amount'], 6)
       memo = event['memo']
       timestamp = event['timestamp']
-      print(f"{timestamp} : From ({sender}) To ({receiver}) Amount ({amount}) Memo ({memo})")
+      print(f"{timestamp} : From ({sender}) To ({receiver}...) Amount ({amount}) Memo ({memo})")
       total_amount = total_amount + amount
     print(f"Total number of records ({xmr_count})")
-    print(f"           Total amount ({total_amount})")
+    print(f"           Total amount ({round(total_amount, 6)})")
 
+  def print_share_found_events(self):
+    events = self.get_events('share_found_event')
+    # Sort events by timestamp
+    events = sorted(events, key=lambda event: event['timestamp'])
+
+    print(f"-- Share Found Events ---------------------")
+    share_count = 0
+    for event in events:
+      share_count = share_count + 1
+      miner = event['miner']
+      difficulty = event['difficulty']
+      ip_addr = event['ip_addr']
+      timestamp = event['timestamp']
+      print(f"{timestamp} : Miner {miner} Difficulty ({difficulty}) IP Address ({ip_addr})") 
+    print(f"Total number of records ({share_count})")
 
   def print_status(self):
     print("---------- MiningDb Status ----------------")
@@ -115,7 +144,7 @@ class MiningDb():
       xmr_count = xmr_count + 1
       sender = event['sender']
       receiver = event['receiver'][0:6]
-      amount = event['amount']
+      amount = round(event['amount'], 6)
       memo = event['memo']
       timestamp = event['timestamp']
       print(f"{timestamp} : From ({sender}) To ({receiver}) Amount ({amount}) Memo ({memo})")

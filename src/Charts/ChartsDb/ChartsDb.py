@@ -23,10 +23,8 @@ class ChartsDb():
   
   def get_p2pool_payouts(self):
     db = self.db()
-    payouts_col = db['xmr_transaction']
-    payouts = payouts_col.find()
-    print(f"ChartsDb:get_p2pool_payouts()")
-    print(payouts)
+    mining_col = db['mining']
+    payouts = mining_col.find({'doc_type': 'xmr_transaction'})
     #sorted_payouts = sorted(payouts, key=lambda event: event['timestamp'])
     #print(sorted_payouts)
     xmr_transactions = []
@@ -39,4 +37,6 @@ class ChartsDb():
       timestamp = payout['timestamp']
       xmr_transaction = XMRTransaction(sender, receiver, amount, block_height, '', timestamp, memo)
       xmr_transactions.append(xmr_transaction)
+    print(f"ChartsDb:get_p2pool_payouts()")
+    print(xmr_transactions)
     return xmr_transactions
