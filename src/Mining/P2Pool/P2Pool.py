@@ -70,8 +70,8 @@ class P2Pool():
         timestamp_str = match.group('timestamp')
         timestamp = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S.%f")
         print(f"-- Block Found Event ----------------------")
-        print(f"    P2Pool    : {self._name}")
-        print(f"    Timestamp : {timestamp}")
+        print(f"    P2Pool       : {self._name}")
+        print(f"    Timestamp    : {timestamp}")
         event = BlockFoundEvent(self._name, timestamp)
         db.add_block_found_event(event)
 
@@ -104,11 +104,11 @@ class P2Pool():
         db.add_share_found_event(event)
     
         print(f"-- Share Found Event-----------------------")
-        print(f"    Miner: {miner}")
-        print(f"    Effort: {effort}")
-        print(f"    Difficulty: {difficulty}")
-        print(f"    IP address: {ip_addr}")
-        print(f"    Timestamp: {timestamp}")
+        print(f"    Miner        : {miner}")
+        print(f"    Effort       : {effort}")
+        print(f"    Difficulty   : {difficulty}")
+        print(f"    IP address   : {ip_addr}")
+        print(f"    Timestamp    : {timestamp}")
         event = ShareFoundEvent(miner, effort, difficulty, ip_addr, timestamp)
         db.add_share_found_event(event)
 
