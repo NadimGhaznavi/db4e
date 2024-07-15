@@ -41,7 +41,11 @@ class MiningApp():
 
       elif choice == "2":
         p2pool = P2Pool()
-        p2pool.monitor_log()
+        try:
+          p2pool.monitor_log()
+        except KeyboardInterrupt:
+          print("Exiting the P2Pool log monitoring app")
+          keep_looping = False
 
       elif choice == "3":
         wallet_csv = input("  Enter the full path to the wallet CSV file: ")

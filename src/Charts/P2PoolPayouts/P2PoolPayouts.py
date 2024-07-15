@@ -28,8 +28,9 @@ class P2PoolPayouts():
     db = ChartsDb()
     payouts = db.get_p2pool_payouts()
     
-    print(f"FOO payouts")
+    print("P2PoolPayouts:generate_csv()")
     print(f"{payouts}")
+    
     rows = []
     rows.append('Date,Total')
     for payout in payouts:

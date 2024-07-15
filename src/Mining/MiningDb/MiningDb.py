@@ -76,6 +76,9 @@ class MiningDb():
     mining_col = db['mining']
     events = mining_col.find({'doc_type': event_type})
     return events
+  
+  def get_num_events(self, event_type):
+    return len(self.get_events(event_type))
 
   def insert_uniq_one(self, new_event):
     db = self.db()
