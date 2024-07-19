@@ -35,6 +35,10 @@ def main():
       miningDb = MiningDb()
       miningDb.print_p2pool_transactions()
 
+    if action == 'get_share_found_events':
+      miningDb = MiningDb()
+      miningDb.print_share_found_events()
+
   else:
     app = Db4eApp()
     app.menu()

@@ -33,7 +33,7 @@ class Db4eStartup():
 
   def __init__(self):
     parser = argparse.ArgumentParser(description='db4e application')  
-    parser.add_argument('-a', '--action', type=str, default=None, help='Action to perform')
+    parser.add_argument('-a', '--action', type=str, default=None, help='[monitor_p2pool_log|get_p2pool_xmr_payments|get_share_found_events]')
     parser.add_argument('-w', '--wallet_csv', type=str, default=None, help='Monero GUI wallet transaction data export file')
     parser.add_argument('-e', '--environ', type=str, default=environment, help='The operating environment e.g. prod, qa, dev')
     parser.add_argument('-i', '--ini_file', type=str, default=ini_file, help='Configuration file for the system')
