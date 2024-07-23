@@ -77,6 +77,18 @@ class MiningDb():
     events = mining_col.find({'doc_type': event_type})
     return events
   
+  def get_wallet_balance(self):
+    db = self.db()
+    mining_col = db['mining']
+    balance = mining_col.find_one({'doc_type': 'wallet_balance'})
+    if not balance:
+      balance = {
+        'doc_type': 'wallet_balance',
+        'balance': 0
+      }
+      mining_col.insert_one(balance)
+    return balance['balance']
+  
   def get_num_events(self, event_type):
     return len(self.get_events(event_type))
 
@@ -177,6 +189,10 @@ class MiningDb():
       timestamp = event['timestamp']
       print(f"{timestamp} : P2Pool ({p2pool})")
     print(f"Total number of records ({block_count})")
+
+    print("-- Wallet Balance -------------------------")
+    balance = self.get_wallet_balance()
+    print("  Balance : {balance}")
     
     print("-------------------------------------------")
     print("Total number of records:\n")
@@ -184,6 +200,22 @@ class MiningDb():
     print(f"  Block Found Events : {block_count}")
     print(f"  Share Found Events : {share_count}")
     print(f"\n               Total : {xmr_count + block_count + share_count}")
+
+  def add_to_wallet_balance(self, amount):
+    db = self.db()
+    mining_col = db['mining']
+
+    balance = mining_col.find_one_and_update(
+      {'doc_type': 'wallet_balance'},
+      {'$inc': {'balance': amount}},
+      return_document=ReturnDocument.AFTER
+    )
+
+    if not balance:
+      raise Exception("Wallet balance document not found")
+
+    return balance['balance']
+
 
 def main():
   db4e = Db4eRoot()

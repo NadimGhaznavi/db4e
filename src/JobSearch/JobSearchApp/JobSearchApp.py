@@ -31,8 +31,11 @@ class JobSearchApp():
       print("  Menu options:")
       print("    1. Status")
       print("    2. Enter Job Search Information")
-      print("    x. Exit")
-      choice = input("  Enter your choice: ")
+      print("    3. Exit")
+      try:
+        choice = input("  Enter your choice: ")
+      except KeyboardInterrupt:
+        choice = 3
 
       if choice == "1":
         self.print_status()
@@ -40,7 +43,7 @@ class JobSearchApp():
       if choice == "2":
         self.enter_job_info()
 
-      if choice == "x" or choice == "X":
+      if choice == "3":
         keep_looping = False
 
   def enter_job_info(self):

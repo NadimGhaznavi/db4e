@@ -137,7 +137,8 @@ class P2Pool():
                                          timestamp, 
                                          'Mining')
         db.add_xmr_transaction(xmr_transaction)
-      
+        db.add_to_wallet_balance(payout_amount)
+
   def p2pool_log(self):
     return self._p2pool_log
 
@@ -146,22 +147,25 @@ class P2Pool():
     while keep_looping:
       print(f"---------- P2Pool Menu ------------------")
       print("  Menu options:")
-      print("    (S)tatus")
-      print("    (M)onitor P2Pool Daemon Log")
-      print("    (C)onfigure P2Pool")
-      print("    E(x)it menu")
-      choice = input("enter your choice: [SMCX]: ")
+      print("    1. Status")
+      print("    2. Monitor P2Pool Daemon Log")
+      print("    3. Configure P2Pool")
+      print("    4. Exit menu")
+      try:
+        choice = input("enter your choice: [SMCX]: ")
+      except KeyboardInterrupt:
+        choice = 4
 
-      if choice == "S" or choice == "s":
+      if choice == "1":
         self.print_status()
 
-      elif choice == "M" or choice == "m":
+      elif choice == "2":
         self.monitor_log()
 
-      elif choice == "C" or choice == "c":
+      elif choice == "3":
         self.config_menu()
 
-      elif choice == "X" or choice == "x":
+      elif choice == "4":
         keep_looping = False
 
       else:
