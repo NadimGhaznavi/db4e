@@ -207,8 +207,7 @@ class MiningDb():
 
     balance = mining_col.find_one_and_update(
       {'doc_type': 'wallet_balance'},
-      {'$inc': {'balance': amount}},
-      return_document=ReturnDocument.AFTER
+      {'$inc': {'balance': amount}}
     )
 
     if not balance:

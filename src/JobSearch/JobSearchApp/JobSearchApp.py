@@ -50,7 +50,7 @@ class JobSearchApp():
     print("\n---------- Job Info -----------------------")
     title = input("  Enter the job title: ")
     company = input("  Enter the company name: ")
-    agency = input("  If applicable, nter the agency name: ")
+    agency = input("  If applicable, enter the agency name: ")
     location = input("  Enter the location of the job: ")
     desc = input("  Enter a description of the job:  ")
     url = input("  Enter a URL for the job posting: ")
