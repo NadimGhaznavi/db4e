@@ -17,7 +17,7 @@ for project_dir in project_dirs:
 
 # Import required db4e modules.
 from Db4eStartup.Db4eStartup import Db4eStartup
-from MiningDb.MiningDb import MiningDb
+from MiningMongoDb.MiningMongoDb import MiningMongoDb
 from BlockFoundEvent.BlockFoundEvent import BlockFoundEvent
 from ShareFoundEvent.ShareFoundEvent import ShareFoundEvent
 from XMRTransaction.XMRTransaction import XMRTransaction
@@ -48,7 +48,7 @@ class P2Pool():
     print(f"Monitoring log file ({self.p2pool_log()})")
     count = 0
 
-    db = MiningDb()
+    db = MiningMongoDb()
 
     while True:
       count = count + 1
@@ -59,7 +59,7 @@ class P2Pool():
         time.sleep(5)
         continue
 
-      #print(f"Log   : {log_line}"[0:-1])
+      print(f"Log   : {log_line}"[0:-1])
 
       ### BLOCK FOUND events
       # 2024-06-12 10:06:28.0478 P2Pool BLOCK FOUND: main chain block at height 3169541 was mined by someone else in this p2pool
@@ -69,9 +69,9 @@ class P2Pool():
         # "Block Found" event
         timestamp_str = match.group('timestamp')
         timestamp = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S.%f")
-        print(f"-- Block Found Event ----------------------")
-        print(f"    P2Pool       : {self._name}")
-        print(f"    Timestamp    : {timestamp}")
+        print("Event : BLOCK FOUND EVENT")
+        print(f"  P2Pool    : {self._name}")
+        print(f"  Timestamp : {timestamp}")
         event = BlockFoundEvent(self._name, timestamp)
         db.add_block_found_event(event)
 
@@ -83,7 +83,7 @@ class P2Pool():
         # "Share Found" event
         timestamp_str = match.group('timestamp')
         try:
-          timestamp = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S.%f")
+          timestamp = datetime.datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S.%f")
         except Exception as e:
           print(f"Failed to parse timestamp {timestamp_str}: {e}")
           continue
@@ -102,13 +102,8 @@ class P2Pool():
 
         event = ShareFoundEvent(miner, effort, difficulty, ip_addr, timestamp)
         db.add_share_found_event(event)
-    
-        print(f"-- Share Found Event-----------------------")
-        print(f"    Miner        : {miner}")
-        print(f"    Effort       : {effort}")
-        print(f"    Difficulty   : {difficulty}")
-        print(f"    IP address   : {ip_addr}")
-        print(f"    Timestamp    : {timestamp}")
+      
+        print(f"Event : SHARE FOUND EVENT - Miner: {miner}, Effort: {effort}, Difficulty: {difficulty}, IP address: {ip_addr}, Timestamp: {timestamp}")
         event = ShareFoundEvent(miner, effort, difficulty, ip_addr, timestamp)
         db.add_share_found_event(event)
 
@@ -123,22 +118,16 @@ class P2Pool():
         timestamp = datetime.strptime(match.group('timestamp'), "%Y-%m-%d %H:%M:%S.%f")
         block_height = int(match.group('block_height'))
         
-        print(f"-- XMR Transaction ------------------------")
-        print(f"    Wallet       : {wallet_address[0:14]}...")
-        print(f"    Amount       : {payout_amount}")
-        print(f"    Block number : {block_height}")
-        print(f"    Timestamp    : {timestamp}")
+        print("XMR TRANSACTION FOUND")
+        print(f"  Wallet       : {wallet_address[0:4]}...")
+        print(f"  Amount       : {payout_amount}")
+        print(f"  Block number : {block_height}")
+        print(f"  Timestamp    : {timestamp}")
         
-        xmr_transaction = XMRTransaction('P2Pool', 
-                                         wallet_address, 
-                                         payout_amount, 
-                                         block_height, 
-                                         '', 
-                                         timestamp, 
-                                         'Mining')
+        # XMRTransaction.__init__(self, sender, receiver, amount, block_height, txid, timestamp, memo=None)
+        xmr_transaction = XMRTransaction('P2Pool', wallet_address, payout_amount, block_height, '', timestamp, 'Mining')
         db.add_xmr_transaction(xmr_transaction)
-        db.add_to_wallet_balance(payout_amount)
-
+      
   def p2pool_log(self):
     return self._p2pool_log
 
@@ -152,7 +141,7 @@ class P2Pool():
       print("    3. Configure P2Pool")
       print("    4. Exit menu")
       try:
-        choice = input("enter your choice: [SMCX]: ")
+        choice = input("enter your choice: ")
       except KeyboardInterrupt:
         choice = 4
 
