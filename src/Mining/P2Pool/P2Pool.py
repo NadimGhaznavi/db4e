@@ -48,7 +48,7 @@ class P2Pool():
     print(f"Monitoring log file ({self.p2pool_log()})")
     count = 0
 
-    db = MiningMongoDb()
+    db = MiningDb()
 
     while True:
       count = count + 1
