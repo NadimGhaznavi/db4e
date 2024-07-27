@@ -69,9 +69,10 @@ class P2Pool():
         # "Block Found" event
         timestamp_str = match.group('timestamp')
         timestamp = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S.%f")
-        print("Event : BLOCK FOUND EVENT")
+        print("-- BLOCK FOUND EVENT -----------------------")
         print(f"  P2Pool    : {self._name}")
         print(f"  Timestamp : {timestamp}")
+        print(f"-------------------------------------------")
         event = BlockFoundEvent(self._name, timestamp)
         db.add_block_found_event(event)
 
@@ -103,7 +104,13 @@ class P2Pool():
         event = ShareFoundEvent(miner, effort, difficulty, ip_addr, timestamp)
         db.add_share_found_event(event)
       
-        print(f"Event : SHARE FOUND EVENT - Miner: {miner}, Effort: {effort}, Difficulty: {difficulty}, IP address: {ip_addr}, Timestamp: {timestamp}")
+        print(f"-- SHARE FOUND EVENT ----------------------")
+        print(f"   Miner: {miner}")
+        print(f"   Effort: {effort}")
+        print(f"   Difficulty: {difficulty}")
+        print(f"   IP address: {ip_addr}")
+        print(f"   Timestamp: {timestamp}")
+        print(f"-------------------------------------------")
         event = ShareFoundEvent(miner, effort, difficulty, ip_addr, timestamp)
         db.add_share_found_event(event)
 
@@ -118,11 +125,13 @@ class P2Pool():
         timestamp = datetime.strptime(match.group('timestamp'), "%Y-%m-%d %H:%M:%S.%f")
         block_height = int(match.group('block_height'))
         
-        print("XMR TRANSACTION FOUND")
-        print(f"  Wallet       : {wallet_address[0:4]}...")
-        print(f"  Amount       : {payout_amount}")
-        print(f"  Block number : {block_height}")
-        print(f"  Timestamp    : {timestamp}")
+        print(f"-- XMR TRANSACTION FOUND -----------------")
+        print(f"   Wallet       : {wallet_address[0:4]}...")
+        print(f"   Amount       : {payout_amount}")
+        print(f"   Block number : {block_height}")
+        print(f"   Timestamp    : {timestamp}")
+        print(f"-------------------------------------------")
+        
         
         # XMRTransaction.__init__(self, sender, receiver, amount, block_height, txid, timestamp, memo=None)
         xmr_transaction = XMRTransaction('P2Pool', wallet_address, payout_amount, block_height, '', timestamp, 'Mining')
