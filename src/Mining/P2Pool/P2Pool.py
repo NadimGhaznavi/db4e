@@ -83,7 +83,7 @@ class P2Pool():
         # "Share Found" event
         timestamp_str = match.group('timestamp')
         try:
-          timestamp = datetime.datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S.%f")
+          timestamp = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S.%f")
         except Exception as e:
           print(f"Failed to parse timestamp {timestamp_str}: {e}")
           continue
