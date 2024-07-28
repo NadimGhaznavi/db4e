@@ -130,7 +130,7 @@ class P2Pool():
         print(f"   Amount       : {payout_amount}")
         print(f"   Block number : {block_height}")
         print(f"   Timestamp    : {timestamp}")
-        print(f"-------------------------------------------")
+        print(f"------------------------------------------")
         
         
         # XMRTransaction.__init__(self, sender, receiver, amount, block_height, txid, timestamp, memo=None)
