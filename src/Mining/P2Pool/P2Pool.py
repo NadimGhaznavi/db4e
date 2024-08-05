@@ -69,7 +69,7 @@ class P2Pool():
         # "Block Found" event
         timestamp_str = match.group('timestamp')
         timestamp = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S.%f")
-        print("-- BLOCK FOUND EVENT -----------------------")
+        print(f"-- BLOCK FOUND EVENT ----------------------")
         print(f"  P2Pool    : {self._name}")
         print(f"  Timestamp : {timestamp}")
         print(f"-------------------------------------------")
